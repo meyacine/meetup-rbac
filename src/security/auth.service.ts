@@ -13,7 +13,7 @@ export class AuthService {
     private _options: JwtOptions = {
         algorithm: 'HS256',
         expiresIn: '2 days',
-        jwtid: process².env.JWT_ID || 'test',
+        jwtid: process.env.JWT_ID || 'test',
     };
 
     constructor(private readonly userService: UserService) {
