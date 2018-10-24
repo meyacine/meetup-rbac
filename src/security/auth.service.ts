@@ -28,4 +28,8 @@ export class AuthService {
         // that's why i'm passing a simple Object this._options
         return await jwt.sign({...new UserDTO(user)}, Properties.JWT_SIGN_KEY, this._options);
     }
+
+    async validateUser(token: string): Promise<UserDTO> {
+        return await jwt.verify(token, Properties.JWT_SIGN_KEY);
+    }
 }
