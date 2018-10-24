@@ -9,12 +9,12 @@ export class PermissionController {
     }
 
     @Get()
-    async findAll(): Permission[] {
+    async findAll() {
         return await this.permissionService.findAll();
     }
 
     @Get(':name')
-    async findOne(@Param() params): Permission {
+    async findOne(@Param() params) {
         return await this.permissionService.findOne(params.name);
     }
 }
