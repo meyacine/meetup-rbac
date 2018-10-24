@@ -18,11 +18,13 @@ export class UserService {
     }
 
     async findOne(credentials: { username: string, password: string }): Promise<User> {
+        const hashedPassword = crypto.createHmac('sha256', credentials.password).digest('hex');
+
         return await this.userRepository.findOne({
             where: [{
                 username: credentials.username,
-                password: crypto.createHmac('sha256', credentials.password).digest('hex')
-            }], relations: ['roles', 'roles.permissions'],
+                password: hashedPassword,
+            }], relations: ['roles', 'roles.permissions'], // eager fetch
         });
     }
 }
