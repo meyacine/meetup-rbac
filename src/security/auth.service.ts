@@ -4,10 +4,10 @@ import { JwtOptions } from './jwt.options';
 import { UserService } from '../user/user.service';
 import { UserDTO } from '../user/user.dto';
 import { SecurityException } from './security.exception';
+import { Properties } from '../properties';
 
 @Injectable()
 export class AuthService {
-    private readonly JWT_SIGN_KEY = process.env.JWT_KEY || 'secret_key';
 
     // FIXME: new JwtOptions({....})
     private _options: JwtOptions = {
@@ -24,7 +24,8 @@ export class AuthService {
 
         if (!user) throw new SecurityException('notFound', HttpStatus.UNAUTHORIZED, 'User not found');
 
-        // FIXME: when i pass a Typed Object JwtOptions the method it crash causing InternalServerError, that's why i'm passing a simple Object this._options
-        return await jwt.sign({...new UserDTO(user)}, this.JWT_SIGN_KEY, this._options);
+        // FIXME: when i pass a Typed Object JwtOptions the method it crash causing InternalServerError,
+        // that's why i'm passing a simple Object this._options
+        return await jwt.sign({...new UserDTO(user)}, Properties.JWT_SIGN_KEY, this._options);
     }
 }
