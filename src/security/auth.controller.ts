@@ -13,6 +13,6 @@ export class AuthController {
         if (!body.password) throw new SecurityException('missingPassword', HttpStatus.BAD_REQUEST, 'Missing password');
 
         const token = await this.authService.signin(body);
-        res.status(HttpStatus.ACCEPTED).json('Bearer ' + token);
+        res.send('Bearer ' + token);
     }
 }
