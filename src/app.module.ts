@@ -6,6 +6,8 @@ import { PermissionModule } from './permission/permission.module';
 import { RoleModule } from './role/role.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './security/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { PermissionsGuard } from './security/permissions.guard';
 
 @Module({
     imports: [
@@ -16,7 +18,7 @@ import { AuthModule } from './security/auth.module';
         AuthModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, {provide: APP_GUARD, useClass: PermissionsGuard}],
 })
 export class AppModule {
 }
